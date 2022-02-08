@@ -6,8 +6,6 @@ const dao = new repository()
 const error = 'producto no encontrado' 
 
 
-
-
 router.get('/:id',(req,res)=>{
    let idProducto = req.params.id
    if(!idProducto){
