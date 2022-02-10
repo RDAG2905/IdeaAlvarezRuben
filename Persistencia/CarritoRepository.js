@@ -1,16 +1,20 @@
 
 const productosRepo = require('./Repository')
+const carrito = require('../Business/Carrito')
 class CarritoRepository{
     
     constructor(){
         this.primerId = 1  
-        this.Carritos = []
+        this.Carritos = [{
+            id:1,
+            productos:[]
+        }]
         this.mensajeOk = 'El producto se agregó al carrito'  
         this.mensajeError = 'Producto inexistente'               
     }
    
    
-    getCarritos = ()=> this.carritos
+    getCarritos(){this.carritos}
      
     getCarritoById(idCarrito){
         let Carrito = this.Carritos.find(pr => pr.id == idCarrito) 
@@ -19,12 +23,12 @@ class CarritoRepository{
 
     getProductsByCarritoId(idCarrito){
         let Carrito = this.Carritos.find(pr => pr.id == idCarrito) 
-        return Carrito.GetProducts   
+        return Carrito.GetProducts()   
     }
 
     saveCarrito(Carrito){
         if (this.Carritos.length == 0){
-            Carrito.id = primerId
+            Carrito.id = this.primerId
          }else{
              let ids = this.Carritos.map(p=>p.id)            
              let maxId = Math.max(...ids)
@@ -35,23 +39,17 @@ class CarritoRepository{
          return Carrito.id
     }
 
-    AgregarProductoAlCarrito(idCarrito,idProducto){
-        const repoProductos = new productosRepo()
-        let producto = repoProductos.getProductById(idProducto)
-        if(producto){
-            let carrito = this.Carritos.find(pr => pr.id == idCarrito) 
-            carrito. AgregarProducto(producto)
-            return {
-                producto,
-                mensajeOk :this.mensajeOk
+    AgregarProductoAlCarrito(idCarrito,producto){       
+            let carrito = this.Carritos.find(pr => pr.id == idCarrito)
+            if(carrito){
+                let producto_Agregado = carrito.AgregarProducto(producto)
+                return producto_Agregado        
+            }else{
+                return null
             }
-        }
-           
-        return {
-            producto,
-            mensajeOk :this.mensajeError
-        }   
-    }
+            
+    } 
+            
 
    
 

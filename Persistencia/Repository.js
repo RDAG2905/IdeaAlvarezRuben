@@ -3,10 +3,31 @@ class ProductosRepository{
 
     constructor(){
         this.primerId = 1  
-        this.productos = []         
+        this.productos = [
+            {
+                id : 1,
+                timestamp: 1644520980721,
+                nombre : "Harina 000",
+                descripción : "Harina de trigo",
+                código : 123001,
+                foto : "url.jpg",
+                precio : 90,
+                stock: 25
+            },
+            {
+                id : 2,
+                timestamp: 1644520980721,
+                nombre : "Misiones",
+                descripción : "Yerba Mate",
+                código : 123002,
+                foto : "url.jpg",
+                precio : 390,
+                stock: 20
+            }
+        ]         
     }
    
-    getProducts = ()=> this.productos
+    getProducts(){this.productos}
      
     getProductById(idProducto){
         let producto = this.productos.find(pr => pr.id == idProducto) 
