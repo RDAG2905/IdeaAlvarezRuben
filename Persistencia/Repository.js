@@ -1,49 +1,35 @@
     
-class Repository{
+class ProductosRepository{
 
     constructor(){
         this.primerId = 1  
-        this.productos = [
-            {
-            title: 'Escuadra',
-            price: 123.45,
-            thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png',
-            id: 1
-            },
-            {
-            title: 'Calculadora',
-            price: 234.56,
-            thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png',
-            id: 2
-            },
-            {
-            title: 'Globo Terráqueo',
-            price: 345.67,
-            thumbnail: 'https://cdn3.iconfinder.com/data/icons/education-209/64/globe-earth-geograhy-planet-school-256.png',
-            id: 3
-            }
-        ] 
-        
+        this.productos = []         
     }
-   
    
     getProducts = ()=> this.productos
      
-
     getProductById(idProducto){
         let producto = this.productos.find(pr => pr.id == idProducto) 
-        return producto   
+        if(producto){
+            return producto
+        }else{
+            {
+                error : 'Producto Inexistente'
+            }
+        }   
     }
 
     saveProduct(producto){
         if (this.productos.length == 0){
-            producto.id = primerId
+            producto.id = this.primerId
          }else{
              let ids = this.productos.map(p=>p.id)            
              let maxId = Math.max(...ids)
              producto.id = maxId + 1
          }
+         producto.timestamp = Date.now()
          this.productos.push(producto) 
+         console.log(this.productos)
          return this.productos.find(x => x.id == producto.id )
     }
 
@@ -52,9 +38,13 @@ class Repository{
         let product = this.productos.find(p=>p.id==idBuscado)    
         
         if(product){
-            product.title = producto.title
-            product.price = producto.price
-            product.thumbnail = producto.thumbnail
+            product.timestamp = producto.timestamp
+            product.nombre = producto.nombre
+            product.descripción = producto.descripción
+            product.código = producto.código
+            product.foto = producto.foto
+            product.precio = producto.precio
+            product.stock = producto.stock
             return product
         }
         return null
@@ -74,5 +64,5 @@ class Repository{
     }
 }
 
-module.exports = Repository
+module.exports = ProductosRepository
  

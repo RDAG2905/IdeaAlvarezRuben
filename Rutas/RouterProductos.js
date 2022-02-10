@@ -2,24 +2,21 @@ const express = require('express')
 const { Router } = express
 const router = Router()
 const repository = require('../Persistencia/Repository.js')
-const dao = new repository()
+const productosDao = new repository()
 const error = 'producto no encontrado' 
 
 
 router.get('/:id',(req,res)=>{
    let idProducto = req.params.id
-   if(!idProducto){
+   let producto = productosDao.getProductById(idProducto)
 
-   }else{
-
-   }
-   let producto = dao.getProductById(idProducto)
    if(!producto){
-       res.send({error})
-   } else{
-       res.send({producto})
-   }  
-      
+        let productos = productosDao.getProducts()
+        res.send({productos})
+    }else{
+        res.send({producto})
+    
+}
    
 })
 
@@ -27,7 +24,7 @@ router.get('/:id',(req,res)=>{
 router.post('/',(req,res)=>{
     let productoNuevo = req.body//.producto
     console.log(productoNuevo)
-    let productoCreado = dao.saveProduct(productoNuevo)
+    let productoCreado = productosDao.saveProduct(productoNuevo)
     res.send({productoCreado}) 
 })
 
@@ -37,7 +34,7 @@ router.put('/:id',(req,res)=>{
    let idProducto = req.params.id    
    let productoEdicion = req.body
 
-   let productoEditado = dao.editarProducto(productoEdicion,idProducto)
+   let productoEditado = productosDao.editarProducto(productoEdicion,idProducto)
    if(!productoEditado){
        res.send({error})
    }else{
@@ -48,7 +45,7 @@ router.put('/:id',(req,res)=>{
 
 router.delete('/:id',(req,res)=>{
    let id = req.params.id
-   let producto = dao.eliminarProducto(id)
+   let producto = productosDao.eliminarProducto(id)
    if(!producto){
        res.send({error})
    }else{       

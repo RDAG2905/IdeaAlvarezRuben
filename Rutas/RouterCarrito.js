@@ -1,20 +1,20 @@
 const express = require('express')
 const { Router } = express
 const router = Router()
-const repository = require('../Persistencia/Repository.js')
+const repository = require('../Persistencia/CarritoRepository.js')
 const dao = new repository()
-const error = 'producto no encontrado' 
+const error = 'carrito no encontrado' 
 
 
 
 
-router.get('/:id/productos',(req,res)=>{
-   let idProducto = req.params.id
-   let producto = dao.getProductById(idProducto)
-   if(!producto){
+router.get('/:id/carritos',(req,res)=>{
+   let idcarrito = req.params.id
+   let carrito = dao.getCarritoById(idcarrito)
+   if(!carrito){
        res.send({error})
    } else{
-       res.send({producto})
+       res.send({carrito})
    }  
       
    
@@ -22,51 +22,53 @@ router.get('/:id/productos',(req,res)=>{
 
 
 router.post('/',(req,res)=>{
-    let productoNuevo = req.body//.producto
-    console.log(productoNuevo)
-    let productoCreado = dao.saveProduct(productoNuevo)
-    res.send({productoCreado}) 
+    let carritoNuevo = req.body//.carrito
+    console.log(carritoNuevo)
+    let carritoCreado = dao.saveCarrito(carritoNuevo)
+    res.send({carritoCreado}) 
 })
 
-router.post('/:id/productos',(req,res)=>{
-    let productoNuevo = req.body//.producto
-    console.log(productoNuevo)
-    let productoCreado = dao.saveProduct(productoNuevo)
-    res.send({productoCreado}) 
+router.post('/:id/carritos',(req,res)=>{
+    let carritoNuevo = req.body//.carrito
+    console.log(carritoNuevo)
+    let carritoCreado = dao.saveCarrito(carritoNuevo)
+    res.send({carritoCreado}) 
 })
 
 
 router.put('/:id',(req,res)=>{
-   let idProducto = req.params.id    
-   let productoEdicion = req.body
+   let idcarrito = req.params.id    
+   let carritoEdicion = req.body
 
-   let productoEditado = dao.editarProducto(productoEdicion,idProducto)
-   if(!productoEditado){
+   let carritoEditado = dao.editarCarrito(carritoEdicion,idcarrito)
+   if(!carritoEditado){
        res.send({error})
    }else{
-       res.send({productoEditado})
+       res.send({carritoEditado})
    }       
 })
 
 
 router.delete('/:id',(req,res)=>{
    let id = req.params.id
-   let producto = dao.eliminarProducto(id)
-   if(!producto){
+   let carrito = dao.eliminarCarrito(id)
+   if(!carrito){
        res.send({error})
    }else{       
-       res.send({"producto Eliminado ": producto})
+       res.send({"carrito Eliminado ": carrito})
    }
    
 })
 
-router.delete('/:id/productos/:id_prod',(req,res)=>{
-    let id = req.params.id
-    let producto = dao.eliminarProducto(id)
-    if(!producto){
+router.delete('/:id/carritos/:id_prod',(req,res)=>{
+    let idCarrito = req.params.id
+    let idProducto = req.params.id_prod
+    let carrito = dao.getCarritoById(idCarrito)
+    if(!carrito){
         res.send({error})
-    }else{       
-        res.send({"producto Eliminado ": producto})
+    }else{
+        carrito.EliminarProducto(idProducto)       
+        res.send({"producto Eliminado Id : ": idProducto})
     }
     
  })
