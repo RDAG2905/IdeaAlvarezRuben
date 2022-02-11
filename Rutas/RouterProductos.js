@@ -6,17 +6,16 @@ const productosDao = new repository()
 const error = 'producto no encontrado' 
 
 
-router.get('/:id',(req,res)=>{
-   let idProducto = req.params.id
-   let producto = productosDao.getProductById(idProducto)
-
-   if(!producto){
-        let productos = productosDao.getProducts()
-        res.send({productos})
-    }else{
-        res.send({producto})
-    
-}
+router.get('/:id?',(req,res)=>{
+   let idProducto = req.params.id  
+        if(!idProducto){
+                let productos = productosDao.getProducts()
+                res.send({productos})
+            }else{
+                let producto = productosDao.getProductById(idProducto)
+                res.send({producto})
+            
+        }
    
 })
 
