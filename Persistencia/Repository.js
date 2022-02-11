@@ -27,7 +27,7 @@ class ProductosRepository{
         ]         
     }
    
-    getProducts(){this.productos}
+    getProducts(){return this.productos}
      
     getProductById(idProducto){
         let producto = this.productos.find(pr => pr.id == idProducto) 

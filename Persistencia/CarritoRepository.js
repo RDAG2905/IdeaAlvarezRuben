@@ -41,9 +41,13 @@ class CarritoRepository{
 
     AgregarProductoAlCarrito(idCarrito,producto){       
             let carrito = this.Carritos.find(pr => pr.id == idCarrito)
+            console.log(`carrito: ${carrito}`)
+           
             if(carrito){
-                let producto_Agregado = carrito.AgregarProducto(producto)
-                return producto_Agregado        
+               carrito.productos.push(producto)
+               return producto
+                //let producto_Agregado = carrito.AgregarProducto(producto)                                                AgregarProducto(producto)
+                //return producto_Agregado        
             }else{
                 return null
             }
@@ -51,15 +55,12 @@ class CarritoRepository{
     } 
             
 
-   
-
-
     eliminarCarrito(id){
         let carrito = this.Carritos.find( pr => pr.id == id)
         if(!carrito){
             return null
         }else{
-            carrito.Vaciar()
+            carrito.productos =[]
             this.Carritos = this.Carritos.filter(prd => prd.id != id)
             return carrito
         }

@@ -8,6 +8,7 @@ const error = 'producto no encontrado'
 
 router.get('/:id?',(req,res)=>{
    let idProducto = req.params.id  
+   console.log(` idProducto ${idProducto}`)
         if(!idProducto){
                 let productos = productosDao.getProducts()
                 res.send({productos})

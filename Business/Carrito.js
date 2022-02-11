@@ -6,7 +6,10 @@ class Carrito{
     
     Vaciar(){this.productos = []}
     
-    AgregarProducto(producto){ this.productos.push(producto)}
+    AgregarProducto(producto){ 
+        this.productos.push(producto)
+        return producto
+    }
     
     EliminarProducto(idProducto){
     this.productos = this.productos.filter(p=>p.id != idProducto)}
